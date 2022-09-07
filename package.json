@@ -29,6 +29,17 @@
     "react-test-renderer": "18.1.0"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|react-navigation)/"
+    ]
   }
 }
