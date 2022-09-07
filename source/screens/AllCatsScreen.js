@@ -10,6 +10,7 @@ import {scale} from 'react-native-size-matters';
 import PagerHeader from '../components/PagerHeader';
 import Text from '../components/Text';
 import FavoriteButton from '../components/FavoriteButton';
+import {useCat} from '../hooks/useCat';
 
 const DATA = [
   {
@@ -528,7 +529,7 @@ const RenderCatList = ({item}) => {
     <View style={styles().listview}>
       <Image
         source={{uri: item.url}}
-        resizeMode={'cover'}
+        resizeMode={'contain'}
         style={styles().listimg}
       />
       <Text style={styles().listtext}>{item.breeds[0].name}</Text>
@@ -539,13 +540,15 @@ const RenderCatList = ({item}) => {
 
 const AllCatsScreen = () => {
   const SCREEN_WIDTH = useWindowDimensions().width;
-
+  const {data, isLoading, isSuccess} = useCat();
+  console.log(data);
   return (
     <View style={styles(SCREEN_WIDTH).container}>
       <PagerHeader title={'All Cats'} />
       <FlatList
+        bounces={true}
         showsVerticalScrollIndicator={false}
-        data={DATA}
+        data={data}
         renderItem={RenderCatList}
       />
     </View>
