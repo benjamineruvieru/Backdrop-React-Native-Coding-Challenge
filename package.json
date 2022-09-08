@@ -12,6 +12,8 @@
   "dependencies": {
     "@tanstack/react-query": "^4.2.3",
     "axios": "^0.27.2",
+    "lottie-ios": "3.4.0",
+    "lottie-react-native": "^5.1.4",
     "react": "18.1.0",
     "react-native": "0.70.0",
     "react-native-dotenv": "^3.3.1",

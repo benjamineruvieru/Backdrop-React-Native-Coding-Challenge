@@ -4,12 +4,17 @@ const storage = new MMKV();
 
 export const setItem = (key, value, shouldStringify) => {
   const mainvalue = shouldStringify ? JSON.stringify(value) : value;
+  console.log(mainvalue);
   storage.set(key, mainvalue);
 };
 
 export const getItem = (key, shouldParse) => {
   const value = storage.getString(key);
-  return shouldParse ? JSON.parse(value) : value;
+  if (value) {
+    return shouldParse ? JSON.parse(value) : value;
+  } else {
+    return shouldParse ? [] : null;
+  }
 };
 
 export const deleteItem = key => {

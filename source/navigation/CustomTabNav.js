@@ -1,15 +1,7 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  SafeAreaView,
-  StatusBar,
-  useWindowDimensions,
-} from 'react-native';
+import {StyleSheet, View, FlatList, SafeAreaView} from 'react-native';
 import React, {useRef, useState} from 'react';
 import TabIcon from '../components/TabIcon';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {verticalScale} from 'react-native-size-matters';
 import AllCatsScreen from '../screens/AllCatsScreen';
 import LikedCats from '../screens/LikedCats';
 
@@ -22,7 +14,6 @@ const RenderScreens = props => {
 const MainBody = React.forwardRef((props, ref) => {
   const onViewRef = React.useRef(viewableItems => {
     if (viewableItems) {
-      console.log('updating cuu', viewableItems.viewableItems[0].index);
       props.setIndex(() => viewableItems.viewableItems[0].index);
     }
   });
