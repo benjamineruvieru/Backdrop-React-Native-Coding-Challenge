@@ -11,6 +11,16 @@ import PagerHeader from '../components/PagerHeader';
 import Text from '../components/Text';
 import FavoriteButton from '../components/FavoriteButton';
 import {useMMKVString} from 'react-native-mmkv';
+import Lottie from 'lottie-react-native';
+
+const sleepingcat = require('../assets/lottie/sleepingcat.json');
+
+const RenderEmptyList = () => (
+  <View style={styles().emptyscreen}>
+    <Lottie source={sleepingcat} style={styles().lottie} autoPlay loop />
+    <Text>Oh Empty!</Text>
+  </View>
+);
 
 const RenderLikedGrid = ({item, index, likedList}) => {
   return (
@@ -50,6 +60,7 @@ const LikedCats = () => {
       <FlatList
         numColumns={2}
         data={JSON.parse(fullLikedList)}
+        ListEmptyComponent={RenderEmptyList}
         renderItem={({item, index}) => (
           <RenderLikedGrid
             item={item}
@@ -57,6 +68,9 @@ const LikedCats = () => {
             likedList={JSON.parse(likedList)}
           />
         )}
+        contentContainerStyle={{
+          flex: JSON.parse(fullLikedList)?.length > 0 ? 0 : 1,
+        }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={() => <View></View>}
         ListHeaderComponentStyle={{height: 30}}
@@ -91,5 +105,15 @@ const styles = props =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
+    },
+    lottie: {
+      height: 150,
+      width: 150,
+      marginBottom: verticalScale(5),
+    },
+    emptyscreen: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });

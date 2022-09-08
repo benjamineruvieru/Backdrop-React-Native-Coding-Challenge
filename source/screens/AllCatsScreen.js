@@ -13,6 +13,10 @@ import Text from '../components/Text';
 import FavoriteButton from '../components/FavoriteButton';
 import {useCat} from '../hooks/useCat';
 import {useMMKVString} from 'react-native-mmkv';
+import Lottie from 'lottie-react-native';
+
+const pawloading = require('../assets/lottie/pawloading.json');
+const caterror = require('../assets/lottie/caterror.json');
 
 const data1 = [
   {
@@ -527,6 +531,35 @@ const data1 = [
 
 const LIST_ITEM_SIZE = 75;
 
+const LoadingScreen = () => {
+  return (
+    <View style={styles().loadingscreen}>
+      <Lottie
+        source={pawloading}
+        style={styles().loadinglottie}
+        autoPlay
+        loop
+      />
+    </View>
+  );
+};
+
+const ErrorScreen = () => {
+  return (
+    <View style={styles().loadingscreen}>
+      <Lottie source={caterror} style={styles().errorlottie} autoPlay loop />
+      <Text>An Error Occurred!</Text>
+    </View>
+  );
+};
+
+const RenderEmptyList = ({isLoading, isError, isSuccess}) => {
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+  return <ErrorScreen />;
+};
+
 const RenderCatList = ({item, scale, likedList}) => {
   return (
     <Animated.View style={styles(scale).listview}>
@@ -569,10 +602,14 @@ const AllCatsScreen = () => {
           {useNativeDriver: true},
         )}
         showsVerticalScrollIndicator={false}
-        data={data1}
+        data={[]}
+        ListEmptyComponent={() => (
+          <RenderEmptyList {...{isLoading, isError, isSuccess}} />
+        )}
+        contentContainerStyle={{flex: data?.length > 0 ? 0 : 1}}
         ListHeaderComponent={() => <View></View>}
         ListHeaderComponentStyle={{height: 30}}
-        ListFooterComponent={() => <ActivityIndicator />}
+        ListFooterComponent={() => isSuccess && <ActivityIndicator />}
         onEndReached={loadExtraCats}
         renderItem={({item, index}) => {
           const inputRange = [
@@ -624,4 +661,13 @@ const styles = props =>
       paddingLeft: 10,
       fontSize: 15,
     },
+    loadinglottie: {
+      height: 100,
+      width: 100,
+    },
+    errorlottie: {
+      height: 200,
+      width: 200,
+    },
+    loadingscreen: {flex: 1, justifyContent: 'center', alignItems: 'center'},
   });
