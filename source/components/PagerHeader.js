@@ -15,7 +15,7 @@ export default PagerHeader;
 
 const styles = StyleSheet.create({
   header: {
-    paddingVertical: verticalScale(30),
+    paddingTop: verticalScale(30),
   },
   text: {
     fontSize: 18,
