@@ -15,6 +15,7 @@ import FavoriteButton from '../components/FavoriteButton';
 import {useCat} from '../hooks/useCat';
 import {useMMKVString} from 'react-native-mmkv';
 import Lottie from 'lottie-react-native';
+import {loadExtraCats} from '../utilis/allcats_helpers';
 
 const pawloading = require('../assets/lottie/pawloading.json');
 const caterror = require('../assets/lottie/caterror.json');
@@ -545,22 +546,24 @@ const LoadingScreen = () => {
   );
 };
 
-const ErrorScreen = ({loadExtraCats}) => {
+const ErrorScreen = ({loadExtraCats, error, setPagenumber, isLoading}) => {
   return (
     <View style={styles().loadingscreen}>
-      <Lottie source={caterror} style={styles().errorlottie} autoPlay loop />
-      <TouchableOpacity onPress={loadExtraCats}>
-        <Text>An Error Occurred!</Text>
+      <TouchableOpacity onPress={() => loadExtraCats(setPagenumber, isLoading)}>
+        <Lottie source={caterror} style={styles().errorlottie} autoPlay loop />
+        <Text>
+          {error ? error.message : 'An error occurred!'} Tap to Retry.
+        </Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const RenderEmptyList = ({isLoading, isError, loadExtraCats}) => {
+const RenderEmptyList = ({isLoading, error, loadExtraCats, setPagenumber}) => {
   if (isLoading) {
     return <LoadingScreen />;
   }
-  return <ErrorScreen loadExtraCats={loadExtraCats} />;
+  return <ErrorScreen {...{loadExtraCats, error, setPagenumber, isLoading}} />;
 };
 
 const RenderCatList = ({item, scale, likedList}) => {
@@ -589,24 +592,16 @@ const AllCatsScreen = () => {
   const [likedList] = useMMKVString('likedCat');
   const [pageNumber, setPagenumber] = useState(0);
   const [catlist, setCatlist] = useState([]);
-  const {data, isLoading, isSuccess, isError, error, isFetched} =
-    useCat(pageNumber);
+
+  const {data, isLoading, isSuccess, isError, error} = useCat(pageNumber);
   const scrollY = useRef(new Animated.Value(0)).current;
-  //console.log(error?.message);
 
   useEffect(() => {
     if (data) {
-      console.log('updateing list lenght', [...catlist, ...data].length);
       setCatlist(catlist => [...catlist, ...data]);
     }
   }, [data, isSuccess]);
 
-  const loadExtraCats = () => {
-    if (!isLoading) {
-      console.log('calling');
-      setPagenumber(page => page + 1);
-    }
-  };
   return (
     <View style={styles(SCREEN_WIDTH).container}>
       <PagerHeader title={'All Cats'} />
@@ -621,14 +616,14 @@ const AllCatsScreen = () => {
         extraData={catlist}
         ListEmptyComponent={() => (
           <RenderEmptyList
-            {...{isLoading, isError, isSuccess, loadExtraCats}}
+            {...{isLoading, error, loadExtraCats, setPagenumber}}
           />
         )}
         contentContainerStyle={{flex: catlist?.length > 0 ? 0 : 1}}
         ListHeaderComponent={() => <View />}
         ListHeaderComponentStyle={{height: 30}}
         ListFooterComponent={() => (isError ? null : <ActivityIndicator />)}
-        onEndReached={loadExtraCats}
+        onEndReached={() => loadExtraCats(setPagenumber, isLoading)}
         renderItem={({item, index}) => {
           const inputRange = [
             -1,
