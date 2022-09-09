@@ -50,16 +50,13 @@ const LikedCats = () => {
   const SCREEN_WIDTH = useWindowDimensions().width;
   const [fullLikedList] = useMMKVString('fullLikedList');
   const [likedList] = useMMKVString('likedCat');
-  console.log(fullLikedList);
-  useEffect(() => {
-    console.log(fullLikedList);
-  }, [fullLikedList]);
+
   return (
     <View style={styles(SCREEN_WIDTH).container}>
       <PagerHeader title={'Cats I Like'} />
       <FlatList
         numColumns={2}
-        data={JSON.parse(fullLikedList)}
+        data={fullLikedList ? JSON.parse(fullLikedList) : []}
         ListEmptyComponent={RenderEmptyList}
         renderItem={({item, index}) => (
           <RenderLikedGrid
@@ -69,10 +66,10 @@ const LikedCats = () => {
           />
         )}
         contentContainerStyle={{
-          flex: JSON.parse(fullLikedList)?.length > 0 ? 0 : 1,
+          flex: fullLikedList && JSON.parse(fullLikedList)?.length > 0 ? 0 : 1,
         }}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={() => <View></View>}
+        ListHeaderComponent={() => <View />}
         ListHeaderComponentStyle={{height: 30}}
       />
     </View>
