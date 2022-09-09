@@ -3,12 +3,6 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {getItem, setItem} from '../utilis/storage';
 
-const data = [
-  {yh: 'nsns', time: 'uej'},
-  {yh: 'nsrrns', time: 'uetgj'},
-  {yh: 'ngfsns', time: 'uddej'},
-];
-
 const FavoriteButton = ({likedList, id, name, url}) => {
   const addToFullLikedList = () => {
     const tmplist = getItem('fullLikedList', true);

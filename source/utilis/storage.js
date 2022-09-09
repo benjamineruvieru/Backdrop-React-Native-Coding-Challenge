@@ -4,7 +4,7 @@ const storage = new MMKV();
 
 export const setItem = (key, value, shouldStringify) => {
   const mainvalue = shouldStringify ? JSON.stringify(value) : value;
-  console.log(mainvalue);
+
   storage.set(key, mainvalue);
 };
 
