@@ -552,7 +552,7 @@ const ErrorScreen = ({loadExtraCats, error, setPagenumber, isLoading}) => {
       <TouchableOpacity onPress={() => loadExtraCats(setPagenumber, isLoading)}>
         <Lottie source={caterror} style={styles().errorlottie} autoPlay loop />
         <Text>
-          {error ? error.message : 'An error occurred!'} Tap to Retry.
+          {error ? error.message : 'An error occurred!'}! Tap to Retry.
         </Text>
       </TouchableOpacity>
     </View>
@@ -593,7 +593,8 @@ const AllCatsScreen = () => {
   const [pageNumber, setPagenumber] = useState(0);
   const [catlist, setCatlist] = useState([]);
 
-  const {data, isLoading, isSuccess, isError, error} = useCat(pageNumber);
+  const {data, isLoading, isSuccess, isError, error, isFetching} =
+    useCat(pageNumber);
   const scrollY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -622,7 +623,9 @@ const AllCatsScreen = () => {
         contentContainerStyle={{flex: catlist?.length > 0 ? 0 : 1}}
         ListHeaderComponent={() => <View />}
         ListHeaderComponentStyle={{height: 30}}
-        ListFooterComponent={() => (isError ? null : <ActivityIndicator />)}
+        ListFooterComponent={() =>
+          isError || isFetching ? null : <ActivityIndicator />
+        }
         onEndReached={() => loadExtraCats(setPagenumber, isLoading)}
         renderItem={({item, index}) => {
           const inputRange = [
