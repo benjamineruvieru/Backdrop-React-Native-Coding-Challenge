@@ -12,7 +12,7 @@ const queryClient = new QueryClient({
 });
 
 it('navigates correctly', done => {
-  const {getByTestId, getAllByText, getByText} = render(
+  const {getByTestId, getAllByText} = render(
     <QueryClientProvider client={queryClient}>
       <CustomTabNav />
     </QueryClientProvider>,

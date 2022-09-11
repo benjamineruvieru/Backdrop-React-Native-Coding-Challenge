@@ -1,5 +1,5 @@
 import React from 'react';
-import {fireEvent, render} from '@testing-library/react-native';
+import {render} from '@testing-library/react-native';
 import AllCatsScreen from '../AllCatsScreen';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
@@ -12,7 +12,7 @@ const queryClient = new QueryClient({
 });
 
 it('renders correctly', done => {
-  const {getByTestId} = render(
+  render(
     <QueryClientProvider client={queryClient}>
       <AllCatsScreen />
     </QueryClientProvider>,

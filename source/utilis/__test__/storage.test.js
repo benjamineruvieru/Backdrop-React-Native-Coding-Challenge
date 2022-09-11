@@ -1,5 +1,5 @@
 import {MMKV} from 'react-native-mmkv';
-import {deleteItem, getItem, setItem} from '../storage';
+import {getItem, setItem} from '../storage';
 
 describe('Testing if MMKV Storage is functioning properly', () => {
   let storage;

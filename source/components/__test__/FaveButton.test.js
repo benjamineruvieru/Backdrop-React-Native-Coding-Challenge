@@ -9,7 +9,6 @@ it('when clicked it adds cats to favourite list', done => {
       {...{likedList: [], id: 'testItemID', name: 'Test Cat', url: 'test.link'}}
     />,
   );
-  const Icon = getByTestId('icon');
   fireEvent.press(getByTestId('favebutton'));
   const LikedCatList1 = getItem('likedCat', true);
   expect(LikedCatList1).toEqual(expect.arrayContaining(['testItemID']));

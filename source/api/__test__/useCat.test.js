@@ -3,6 +3,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {renderHook} from '@testing-library/react-hooks';
 import nock from 'nock';
 import {CAT_API_KEY} from '@env';
+import React from 'react';
 
 describe('Testing Api Call', () => {
   const queryClient = new QueryClient({

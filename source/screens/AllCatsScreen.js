@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useRef} from 'react';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {s, verticalScale} from 'react-native-size-matters';
 import PagerHeader from '../components/PagerHeader';
 import Text from '../components/Text';
 import FavoriteButton from '../components/FavoriteButton';
@@ -18,7 +18,7 @@ import Lottie from 'lottie-react-native';
 const pawloading = require('../assets/lottie/pawloading.json');
 const caterror = require('../assets/lottie/caterror.json');
 
-const LIST_ITEM_SIZE = verticalScale(60);
+const LIST_ITEM_SIZE = 75;
 
 const LoadingScreen = () => {
   return (
@@ -73,7 +73,12 @@ const AllCatsScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const RenderCatList = ({item, index}) => {
-    inputRange = [-1, 0, LIST_ITEM_SIZE * index, LIST_ITEM_SIZE * (3 + index)];
+    const inputRange = [
+      -1,
+      0,
+      LIST_ITEM_SIZE * index,
+      LIST_ITEM_SIZE * (3 + index),
+    ];
     const outputRange = [1, 1, 1, 0];
     const scale = scrollY.interpolate({inputRange, outputRange});
     return (
@@ -138,18 +143,18 @@ const styles = props =>
     container: {
       flex: 1,
       width: props,
-      paddingHorizontal: scale(20),
+      paddingHorizontal: s(20),
     },
     listview: {
       flexDirection: 'row',
-      marginTop: verticalScale(20),
+      marginTop: 30,
       alignItems: 'center',
-      height: LIST_ITEM_SIZE - verticalScale(20),
+      height: LIST_ITEM_SIZE - 30,
       transform: [{scale: props}],
     },
     listimg: {
       aspectRatio: 1 / 1,
-      width: scale(50),
+      width: s(50),
       backgroundColor: '#D3D3D3',
       borderRadius: 10,
     },
@@ -160,16 +165,16 @@ const styles = props =>
     },
     loadinglottie: {
       aspectRatio: 1 / 1,
-      width: scale(100),
+      width: s(100),
     },
     errorlottie: {
       aspectRatio: 1 / 1,
-      width: scale(170),
+      width: s(170),
     },
     loadingscreen: {flex: 1, justifyContent: 'center', alignItems: 'center'},
     extraloadinglottie: {
       aspectRatio: 1 / 1,
-      width: scale(50),
+      width: s(50),
       alignSelf: 'center',
     },
   });

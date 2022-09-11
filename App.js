@@ -3,7 +3,6 @@ import {Platform, StatusBar} from 'react-native';
 import CustomTabNav from './source/navigation/CustomTabNav';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import RNBootSplash from 'react-native-bootsplash';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const queryClient = new QueryClient();
 
@@ -16,9 +15,7 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>
-        <CustomTabNav />
-      </SafeAreaProvider>
+      <CustomTabNav />
     </QueryClientProvider>
   );
 };
