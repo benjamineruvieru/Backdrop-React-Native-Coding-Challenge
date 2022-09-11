@@ -1,5 +1,5 @@
-import {useCat} from '../useCat';
-import {QueryClient, QueryClientProvider} from 'react-query';
+import {useFetchCats} from '../fetchCat';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {renderHook} from '@testing-library/react-hooks';
 import nock from 'nock';
 import {CAT_API_KEY} from '@env';
@@ -19,7 +19,7 @@ describe('Testing Api Call', () => {
 
   it('functions correctly', async () => {
     const expectation = nock('https://api.thecatapi.com/v1')
-      .get(`/images/search?limit=10&page=0&has_breeds=1&api_key=${CAT_API_KEY}`)
+      .get(`/images/search?limit=15&page=0&has_breeds=1&api_key=${CAT_API_KEY}`)
       .reply(200, [
         {
           breeds: [
@@ -72,7 +72,7 @@ describe('Testing Api Call', () => {
         },
       ]);
 
-    const {result, waitFor} = renderHook(() => useCat(), {wrapper});
+    const {result, waitFor} = renderHook(() => useFetchCats(), {wrapper});
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expectation.done();

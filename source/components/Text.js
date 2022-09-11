@@ -6,7 +6,7 @@ const Text = ({children, style, color = 'black'}) => {
     text: {
       fontSize: 13,
       color: color,
-      // fontFamily: 'SFProDisplay-Regular',
+      fontFamily: 'SFProDisplay-Regular',
       ...style,
     },
   });

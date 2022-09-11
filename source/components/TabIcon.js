@@ -3,16 +3,20 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Text from './Text';
 
-const TabIcon = ({type, index, currentVisibleIndex, scollPageTo}) => {
+const TabIcon = ({testID, type, index, currentVisibleIndex, scollPageTo}) => {
   return (
-    <Pressable style={styles.icon} onPress={() => scollPageTo(index)}>
+    <Pressable
+      testID={testID}
+      style={styles.icon}
+      onPress={() => scollPageTo(index)}>
       <Icon
+        testID={testID + '.icon'}
         name={type}
         size={27}
         color={index === currentVisibleIndex ? 'black' : '#D3D3D3'}
       />
       <Text color={index === currentVisibleIndex ? 'black' : '#D3D3D3'}>
-        {type === 'cat' ? 'All Cats' : 'Cat I Like'}
+        {type === 'cat' ? 'All Cats' : 'Cats I Like'}
       </Text>
     </Pressable>
   );
