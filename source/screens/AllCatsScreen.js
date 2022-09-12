@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useRef} from 'react';
-import {s, verticalScale} from 'react-native-size-matters';
+import {s} from 'react-native-size-matters';
 import PagerHeader from '../components/PagerHeader';
 import Text from '../components/Text';
 import FavoriteButton from '../components/FavoriteButton';
