@@ -40,13 +40,21 @@ Return to the project main directory:
 ```
 $ cd ..
 ```
+Head over to [thecatapi.com]('https://thecatapi.com) and get a free API key 
+
+Create a .env file in the main directory of the project
+
+Input your API in the file as shown below
+
+CAT_API_KEY=<YOUR_API_KEY>
+
 To run on android: 
 ```
-$ react-native run-android
+$ npx react-native run-android
 ```
 To run on iOS: 
 ```
-$ react-native run-ios
+$ npx react-native run-ios
 ```
 
 ## Testing
